@@ -1,0 +1,30 @@
+{
+  "name": "jansenfelipe/orm",
+  "description": "Optical Mark Recognition from PHP",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jansen Felipe",
+      "email": "jansen.felipe@gmail.com"
+    }
+  ],
+  "keywords": [
+    "omr",
+    "optical mark recognition",
+    "survey"
+  ],
+  "require": {
+    "symfony/console": "^3.0"
+  },
+  "bin": ["bin/omr"],
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "JansenFelipe\\OMR\\": "src/"
+    }
+  },
+  "minimum-stability": "dev"
+}
