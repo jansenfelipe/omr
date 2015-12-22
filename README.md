@@ -70,7 +70,7 @@ Example:
       "id": "a2",
       "type": "rectangle"
     }
-  }
+  ]
 }
 ```
 
