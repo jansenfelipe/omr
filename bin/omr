@@ -1,3 +1,18 @@
 #!/usr/bin/env php
 <?php
-include('omr.php');
+
+foreach (array(__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php') as $file) {
+
+    if (file_exists($file)) {
+        require_once $file;
+
+        break;
+    }
+}
+
+use JansenFelipe\OMR\Commands\ScanCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+$application->add(new ScanCommand());
+$application->run();
