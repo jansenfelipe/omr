@@ -72,4 +72,14 @@ class TextTarget extends Target
         $this->imageBlob = $imageBlob;
     }
 
+    /**
+     * Set image blob
+     *
+     * @return string
+     */
+    public function getImageBlob()
+    {
+        return $this->imageBlob;
+    }
+
 }

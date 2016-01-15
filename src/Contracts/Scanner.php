@@ -103,11 +103,23 @@ abstract class Scanner
     protected abstract function debug();
 
     /**
+     * Set image path
+     *
      * @param mixed $imagePath
      */
     public function setImagePath($imagePath)
     {
         $this->imagePath = $imagePath;
+    }
+
+    /**
+     * Set debug image path
+     *
+     * @param mixed $debugPath
+     */
+    public function setDebugPath($debugPath)
+    {
+        $this->debugPath = $debugPath;
     }
 
     /**

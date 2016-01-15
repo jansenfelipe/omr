@@ -91,7 +91,7 @@ class MapJson implements Map
 
         foreach($this->targets as $target)
         {
-            if($target['type'] == 'rectangle')
+            if($target['type'] == 'text')
             {
                 $targets[] = new TextTarget($target['id'], new Point($target['x1'], $target['y1']), new Point($target['x2'], $target['y2']));
             }
