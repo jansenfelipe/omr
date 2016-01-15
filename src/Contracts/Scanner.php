@@ -27,6 +27,13 @@ abstract class Scanner
     protected $debug = false;
 
     /**
+     * Path image to wirte debug image file
+     *
+     * @var string
+     */
+    protected $debugPath = 'debug.jpg';
+
+    /**
      * Tolerance mark
      *
      * @var float

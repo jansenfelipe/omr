@@ -65,6 +65,16 @@ class Result
     }
 
     /**
+     * Get target
+     *
+     * @return Target[]
+     */
+    public function getTargets()
+    {
+        return $this->targets;
+    }
+
+    /**
      * Set mime image
      *
      * @param string $imageMime
@@ -83,6 +93,4 @@ class Result
     {
         $this->imagePath = $imagePath;
     }
-
-
 }

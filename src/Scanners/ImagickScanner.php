@@ -153,7 +153,7 @@ class ImagickScanner extends Scanner
     {
         $imagick = $this->getImagick();
         $imagick->drawImage($this->draw);
-        file_put_contents('debug.jpg', $imagick->getImageBlob());
+        file_put_contents($this->debugPath, $imagick->getImageBlob());
     }
 
     /**
