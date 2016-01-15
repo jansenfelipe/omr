@@ -183,7 +183,7 @@ class ImagickScanner extends Scanner
                 $blacks += $qtd;
         }
 
-        $area = new Area(count($pixels), $whites, $blacks);;
+        $area = new Area(count($pixels), $whites, $blacks);
 
         //Add draw debug
         $this->draw->setStrokeOpacity(1);
@@ -207,4 +207,22 @@ class ImagickScanner extends Scanner
         return true;
     }
 
+    /**
+     * Returns image blob in a rectangular area
+     *
+     * @param Point $a
+     * @param Point $b
+     * @return string
+     */
+    protected function textArea(Point $a, Point $b)
+    {
+        $imagick = $this->getImagick();
+
+        $width = $b->getX() - $a->getX();
+        $height = $b->getY() - $a->getY();
+
+        $region = $imagick->getImageRegion($width, $height, $a->getX(), $a->getY());
+
+        return $region->getImageBlob();
+    }
 }

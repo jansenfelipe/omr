@@ -7,6 +7,7 @@ use JansenFelipe\OMR\Contracts\Target;
 use JansenFelipe\OMR\Point;
 use JansenFelipe\OMR\Targets\CircleTarget;
 use JansenFelipe\OMR\Targets\RectangleTarget;
+use JansenFelipe\OMR\Targets\TextTarget;
 
 class MapJson implements Map
 {
@@ -90,6 +91,11 @@ class MapJson implements Map
 
         foreach($this->targets as $target)
         {
+            if($target['type'] == 'rectangle')
+            {
+                $targets[] = new TextTarget($target['id'], new Point($target['x1'], $target['y1']), new Point($target['x2'], $target['y2']));
+            }
+
             if($target['type'] == 'rectangle')
             {
                 $targets[] = new RectangleTarget($target['id'], new Point($target['x1'], $target['y1']), new Point($target['x2'], $target['y2']));

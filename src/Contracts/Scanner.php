@@ -8,6 +8,7 @@ use JansenFelipe\OMR\Point;
 use JansenFelipe\OMR\Result;
 use JansenFelipe\OMR\Targets\CircleTarget;
 use JansenFelipe\OMR\Targets\RectangleTarget;
+use JansenFelipe\OMR\Targets\TextTarget;
 
 abstract class Scanner
 {
@@ -63,6 +64,15 @@ abstract class Scanner
      * @return Area
      */
     protected abstract function circleArea(Point $a, $radius);
+
+    /**
+     * Returns image blob in a rectangular area
+     *
+     * @param Point $a
+     * @param Point $b
+     * @return string
+     */
+    protected abstract function textArea(Point $a, Point $b);
 
     /**
      * Increases or decreases image size
@@ -149,20 +159,23 @@ abstract class Scanner
 
         foreach($map->targets() as $target)
         {
+            if ($target instanceof TextTarget){
+                $target->setImageBlob($this->textArea($target->getA()->moveX($ajustX)->moveY($ajustY), $target->getB()->moveX($ajustX)->moveY($ajustY)));
 
-            if($target instanceof RectangleTarget)
-            {
-                $area = $this->rectangleArea($target->getA()->moveX($ajustX)->moveY($ajustY), $target->getB()->moveX($ajustX)->moveY($ajustY));
+            }else {
+
+                if ($target instanceof RectangleTarget) {
+                    $area = $this->rectangleArea($target->getA()->moveX($ajustX)->moveY($ajustY), $target->getB()->moveX($ajustX)->moveY($ajustY));
+                }
+
+                if ($target instanceof CircleTarget) {
+                    $area = $this->circleArea($target->getPoint()->moveX($ajustX)->moveY($ajustY), $target->getRadius(), $tolerance);
+                }
+
+                $check = ($area->percentBlack() >= $tolerance);
+
+                $target->setMarked($check);
             }
-
-            if($target instanceof CircleTarget)
-            {
-                $area = $this->circleArea($target->getPoint()->moveX($ajustX)->moveY($ajustY), $target->getRadius(), $tolerance);
-            }
-
-            $check = ($area->percentBlack() >= $tolerance);
-
-            $target->setMarked($check);
 
             $result->addTarget($target);
         }
