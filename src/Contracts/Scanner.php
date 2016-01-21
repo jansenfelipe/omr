@@ -103,6 +103,13 @@ abstract class Scanner
     protected abstract function debug();
 
     /**
+     * Finish processes
+     *
+     * @param void
+     */
+    protected abstract function finish();
+
+    /**
      * Set image path
      *
      * @param mixed $imagePath
@@ -201,6 +208,8 @@ abstract class Scanner
 
         if($this->debug)
             $this->debug();
+
+        $this->finish();
 
         return $result;
     }

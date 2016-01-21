@@ -225,4 +225,14 @@ class ImagickScanner extends Scanner
 
         return $region->getImageBlob();
     }
+
+    /**
+     * Finish processes
+     *
+     * @param void
+     */
+    protected function finish()
+    {
+        $this->getImagick()->clear();
+    }
 }
