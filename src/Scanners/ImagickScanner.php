@@ -237,6 +237,13 @@ class ImagickScanner extends Scanner
 
         $region = $imagick->getImageRegion($width, $height, $a->getX(), $a->getY());
 
+        //Add draw debug
+        $this->draw->setStrokeOpacity(1);
+        $this->draw->setFillOpacity(0);
+        $this->draw->setStrokeWidth(2);
+        $this->draw->setStrokeColor("#FFFF00");
+        $this->draw->rectangle($a->getX(), $a->getY(), $b->getX(), $b->getY());
+
         return $region->getImageBlob();
     }
 
