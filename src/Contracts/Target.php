@@ -20,6 +20,13 @@ abstract class Target
     protected $id;
 
     /**
+     * Black pixels percentage compared to whites to consider marked
+     *
+     * @var float
+     */
+    protected $tolerance = 24;
+
+    /**
      * Checks if the target was marked
      *
      * @return boolean
@@ -54,5 +61,23 @@ abstract class Target
     {
         $this->id = $id;
     }
+
+    /**
+     * @return float
+     */
+    public function getTolerance()
+    {
+        return $this->tolerance;
+    }
+
+    /**
+     * @param float $tolerance
+     */
+    public function setTolerance($tolerance)
+    {
+        $this->tolerance = $tolerance;
+    }
+
+
 
 }

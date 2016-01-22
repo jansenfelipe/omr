@@ -34,13 +34,6 @@ abstract class Scanner
     protected $debugPath = 'debug.jpg';
 
     /**
-     * Tolerance mark
-     *
-     * @var float
-     */
-    protected $tolerance;
-
-    /**
      * Most point to the top/right
      *
      * @return Point
@@ -59,18 +52,20 @@ abstract class Scanner
      *
      * @param Point $a
      * @param Point $b
+     * @param float $tolerance
      * @return Area
      */
-    protected abstract function rectangleArea(Point $a, Point $b);
+    protected abstract function rectangleArea(Point $a, Point $b, $tolerance);
 
     /**
      * Returns pixel analysis in a circular area
      *
      * @param Point $a
      * @param float $radius
+     * @param float $tolerance
      * @return Area
      */
-    protected abstract function circleArea(Point $a, $radius);
+    protected abstract function circleArea(Point $a, $radius, $tolerance);
 
     /**
      * Returns image blob in a rectangular area
@@ -134,13 +129,10 @@ abstract class Scanner
      *
      * @param $imagePath
      * @param Map $map
-     * @param int $tolerance
      * @return Result
      */
-    public function scan(Map $map, $tolerance)
+    public function scan(Map $map)
     {
-        $this->tolerance = $tolerance;
-
         $info = getimagesize($this->imagePath);
 
         /*
@@ -202,14 +194,14 @@ abstract class Scanner
             }else {
 
                 if ($target instanceof RectangleTarget) {
-                    $area = $this->rectangleArea($target->getA()->moveX($ajustX)->moveY($ajustY), $target->getB()->moveX($ajustX)->moveY($ajustY));
+                    $area = $this->rectangleArea($target->getA()->moveX($ajustX)->moveY($ajustY), $target->getB()->moveX($ajustX)->moveY($ajustY), $target->getTolerance());
                 }
 
                 if ($target instanceof CircleTarget) {
-                    $area = $this->circleArea($target->getPoint()->moveX($ajustX)->moveY($ajustY), $target->getRadius(), $tolerance);
+                    $area = $this->circleArea($target->getPoint()->moveX($ajustX)->moveY($ajustY), $target->getRadius(), $target->getTolerance());
                 }
 
-                $check = ($area->percentBlack() >= $tolerance);
+                $check = ($area->percentBlack() >= $target->getTolerance());
 
                 $target->setMarked($check);
             }

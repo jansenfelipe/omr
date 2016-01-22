@@ -93,18 +93,23 @@ class MapJson implements Map
         {
             if($target['type'] == 'text')
             {
-                $targets[] = new TextTarget($target['id'], new Point($target['x1'], $target['y1']), new Point($target['x2'], $target['y2']));
+                $t = new TextTarget($target['id'], new Point($target['x1'], $target['y1']), new Point($target['x2'], $target['y2']));
             }
 
             if($target['type'] == 'rectangle')
             {
-                $targets[] = new RectangleTarget($target['id'], new Point($target['x1'], $target['y1']), new Point($target['x2'], $target['y2']));
+                $t = new RectangleTarget($target['id'], new Point($target['x1'], $target['y1']), new Point($target['x2'], $target['y2']));
             }
 
             if($target['type'] == 'circle')
             {
-                $targets[] = new CircleTarget($target['id'], new Point($target['x'], $target['y']), $target['radius']);
+                $t = new CircleTarget($target['id'], new Point($target['x'], $target['y']), $target['radius']);
             }
+
+            if(isset($target['tolerance']))
+                $t->setTolerance($target['tolerance']);
+
+            $targets[] = $t;
         }
 
         return $targets;

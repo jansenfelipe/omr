@@ -175,9 +175,10 @@ class ImagickScanner extends Scanner
      *
      * @param Point $a
      * @param Point $b
+     * @param float $tolerance
      * @return Area
      */
-    protected function rectangleArea(Point $a, Point $b)
+    protected function rectangleArea(Point $a, Point $b, $tolerance)
     {
         $imagick = $this->getImagick();
 
@@ -203,7 +204,7 @@ class ImagickScanner extends Scanner
         $this->draw->setStrokeOpacity(1);
         $this->draw->setFillOpacity(0);
         $this->draw->setStrokeWidth(2);
-        $this->draw->setStrokeColor($area->percentBlack()>=$this->tolerance?"#0000CC":"#CC0000");
+        $this->draw->setStrokeColor($area->percentBlack()>=$tolerance?"#0000CC":"#CC0000");
         $this->draw->rectangle($a->getX(), $a->getY(), $b->getX(), $b->getY());
 
         return $area;
@@ -214,9 +215,10 @@ class ImagickScanner extends Scanner
      *
      * @param Point $a
      * @param float $radius
+     * @param float $tolerance
      * @return Area
      */
-    protected function circleArea(Point $a, $radius)
+    protected function circleArea(Point $a, $radius, $tolerance)
     {
         return true;
     }
