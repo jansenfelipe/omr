@@ -45,14 +45,14 @@ abstract class Scanner
      *
      * @return Point
      */
-    protected abstract function topRight();
+    protected abstract function topRight(Point $near);
 
     /**
      * Most point to the bottom/left
      *
      * @return Point
      */
-    protected abstract function bottomLeft();
+    protected abstract function bottomLeft(Point $near);
 
     /**
      * Returns pixel analysis in a rectangular area
@@ -155,33 +155,44 @@ abstract class Scanner
          * Check map
          */
         $topRightMap = $map->topRight();
-        $bottomLefttMap = $map->bottomLeft();
+        $bottomLeftMap = $map->bottomLeft();
 
-        $angleMap = $this->anglePoints($topRightMap, $bottomLefttMap);
-        $distanceCornersMap = $this->distancePoints($topRightMap, $bottomLefttMap);
+        $angleMap = $this->anglePoints($topRightMap, $bottomLeftMap);
+        $distanceCornersMap = $this->distancePoints($topRightMap, $bottomLeftMap);
 
         /*
-         * Ajust rotation
+         * Check image
          */
-        $angleImage = $this->anglePoints($this->topRight(), $this->bottomLeft());
+        $topRightImage = $this->topRight($topRightMap);
+        $bottomLeftImage = $this->bottomLeft($bottomLeftMap);
+
+        /*
+         * Ajust angle image
+         */
+        $angleImage = $this->anglePoints($topRightImage, $bottomLeftImage);
         $this->ajustRotate($angleMap - $angleImage);
 
         /*
-         * Ajust size
+         * Check image again
          */
-        $distanceCornersImage = $this->distancePoints($this->topRight(), $this->bottomLeft());
+        $topRightImage = $this->topRight($topRightMap);
+        $bottomLeftImage = $this->bottomLeft($bottomLeftMap);
 
+        /*
+         * Ajust size image
+         */
+        $distanceCornersImage = $this->distancePoints($topRightImage, $bottomLeftImage);
         $p = 100 - ((100 * $distanceCornersImage) / $distanceCornersMap);
-
         $this->ajustSize($p);
 
         /*
-         * Define position ajust map
+         * Check image again
          */
-        $topRightImage = $this->topRight();
+        $topRightImage = $this->topRight($topRightMap);
+        $bottomLeftImage = $this->bottomLeft($bottomLeftMap);
 
         $ajustX = $topRightImage->getX() - $topRightMap->getX();
-        $ajustY = $topRightImage->getY() - $topRightMap->getY();
+        $ajustY = $bottomLeftImage->getY() - $bottomLeftMap->getY();
 
         foreach($map->targets() as $target)
         {

@@ -51,6 +51,28 @@ class Point
     }
 
     /**
+     * Position X
+     *
+     * @param float $x
+     */
+    public function setX($x)
+    {
+        $this->x = $x;
+    }
+
+    /**
+     * Position Y
+     *
+     * @param float $y
+     */
+    public function setY($y)
+    {
+        $this->y = $y;
+    }
+
+
+
+    /**
      * Move the point at $position on the X axis
      *
      * @param int $position

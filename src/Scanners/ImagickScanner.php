@@ -45,32 +45,39 @@ class ImagickScanner extends Scanner
      *
      * @return Point
      */
-    protected function topRight()
+    protected function topRight(Point $near)
     {
         $imagick = $this->getImagick();
-        $side = 300;
+        $side = 150;
 
-        $first["x"] = $imagick->getImageWidth() - $side;
-        $first["y"] = $side;
+        $first = new Point($near->getX() - $side/2, $near->getY() - $side/2);
+        $last  = new Point($near->getX() + $side/2, $near->getY() + $side/2);
 
-        for($y = $side; $y>0; $y--)
+        $point = new Point($first->getX(), $last->getY());
+
+        //Add draw debug
+        $this->draw->setStrokeOpacity(1);
+        $this->draw->setFillOpacity(0);
+        $this->draw->setStrokeWidth(2);
+        $this->draw->setStrokeColor("#00CC00");
+        $this->draw->rectangle($first->getX(), $first->getY(), $last->getX(), $last->getY());
+
+        for($y = $first->getY(); $y != $last->getY(); $y++)
         {
-            for($x = ($imagick->getImageWidth() - $side); $x<=$imagick->getImageWidth(); $x++)
+            for($x = $first->getX(); $x != $last->getX(); $x++)
             {
                 $color = $imagick->getImagePixelColor($x, $y)->getColor();
 
-                if ($color['r'] == 0 && $color['g'] == 0 && $color['b'] == 0)
+                if ($color['r'] <= 5 && $color['g'] <= 5 && $color['b'] <= 5)
                 {
-                    if ($x >= $first["x"])
-                        $first["x"] = $x;
+                    if ($x >= $point->getX())
+                        $point->setX($x);
 
-                    if ($y <= $first["y"])
-                        $first["y"] = $y;
+                    if ($y <= $point->getY())
+                        $point->setY($y);
                 }
             }
         }
-
-        $point = new Point($first["x"], $first["y"]);
 
         //Debug draw
         $this->draw->setFillColor("#00CC00");
@@ -84,32 +91,39 @@ class ImagickScanner extends Scanner
      *
      * @return Point
      */
-    protected function bottomLeft()
+    protected function bottomLeft(Point $near)
     {
         $imagick = $this->getImagick();
-        $side = 300;
+        $side = 150;
 
-        $last["x"] = $side;
-        $last["y"] = $imagick->getImageHeight() - $side;
+        $first = new Point($near->getX() - $side/2, $near->getY() - $side/2);
+        $last  = new Point($near->getX() + $side/2, $near->getY() + $side/2);
 
-        for($y = ($imagick->getImageHeight() - $side); $y<=$imagick->getImageHeight(); $y++)
+        $point = new Point($last->getX(), $first->getY());
+
+        //Add draw debug
+        $this->draw->setStrokeOpacity(1);
+        $this->draw->setFillOpacity(0);
+        $this->draw->setStrokeWidth(2);
+        $this->draw->setStrokeColor("#00CC00");
+        $this->draw->rectangle($first->getX(), $first->getY(), $last->getX(), $last->getY());
+
+        for($y = $first->getY(); $y != $last->getY(); $y++)
         {
-            for($x = $side; $x>0; $x--)
+            for($x = $first->getX(); $x != $last->getX(); $x++)
             {
                 $color = $imagick->getImagePixelColor($x, $y)->getColor();
 
-                if ($color['r'] == 0 && $color['g'] == 0 && $color['b'] == 0)
+                if ($color['r'] <= 5 && $color['g'] <= 5 && $color['b'] <= 5)
                 {
-                    if ($x <= $last["x"])
-                        $last["x"] = $x;
+                    if ($x <= $point->getX())
+                        $point->setX($x);
 
-                    if ($y >= $last["y"])
-                        $last["y"] = $y;
+                    if ($y >= $point->getY())
+                        $point->setY($y);
                 }
             }
         }
-
-        $point = new Point($last["x"], $last["y"]);
 
         //Debug draw
         $this->draw->setFillColor("#00CC00");
@@ -130,7 +144,7 @@ class ImagickScanner extends Scanner
         $widthAjusted = $imagick->getImageWidth() + (($imagick->getImageWidth() * $percent) / 100);
         $heightAjust = $imagick->getImageHeight() + (($imagick->getImageHeight() * $percent) / 100);
 
-        $imagick->resizeImage($widthAjusted, $heightAjust, Imagick::FILTER_POINT, 0, false);
+        $this->imagick->resizeImage($widthAjusted, $heightAjust, Imagick::FILTER_POINT, 0, false);
     }
 
     /**
