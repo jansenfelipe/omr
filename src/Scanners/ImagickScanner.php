@@ -48,10 +48,9 @@ class ImagickScanner extends Scanner
     protected function topRight(Point $near)
     {
         $imagick = $this->getImagick();
-        $side = 150;
 
-        $first = new Point($near->getX() - $side/2, $near->getY() - $side/2);
-        $last  = new Point($near->getX() + $side/2, $near->getY() + $side/2);
+        $first = new Point($near->getX() - 70, $near->getY() - 70);
+        $last  = new Point($near->getX() + 80, $near->getY() + 80);
 
         $point = new Point($first->getX(), $last->getY());
 
@@ -94,10 +93,9 @@ class ImagickScanner extends Scanner
     protected function bottomLeft(Point $near)
     {
         $imagick = $this->getImagick();
-        $side = 150;
-
-        $first = new Point($near->getX() - $side/2, $near->getY() - $side/2);
-        $last  = new Point($near->getX() + $side/2, $near->getY() + $side/2);
+        
+        $first = new Point($near->getX() - 70, $near->getY() - 70);
+        $last  = new Point($near->getX() + 80, $near->getY() + 80);
 
         $point = new Point($last->getX(), $first->getY());
 

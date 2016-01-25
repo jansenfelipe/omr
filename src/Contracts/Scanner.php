@@ -184,7 +184,7 @@ abstract class Scanner
         $bottomLeftImage = $this->bottomLeft($bottomLeftMap);
 
         $ajustX = $topRightImage->getX() - $topRightMap->getX();
-        $ajustY = $bottomLeftImage->getY() - $bottomLeftMap->getY();
+        $ajustY = $topRightImage->getY() - $topRightImage->getY();
 
         foreach($map->targets() as $target)
         {
