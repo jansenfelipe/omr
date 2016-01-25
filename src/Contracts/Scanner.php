@@ -167,8 +167,8 @@ abstract class Scanner
         /*
          * Check image again
          */
-        $topRightImage = $this->topRight($topRightMap);
-        $bottomLeftImage = $this->bottomLeft($bottomLeftMap);
+        $topRightImage = $this->topRight($topRightImage);
+        $bottomLeftImage = $this->bottomLeft($bottomLeftImage);
 
         /*
          * Ajust size image
@@ -180,11 +180,11 @@ abstract class Scanner
         /*
          * Check image again
          */
-        $topRightImage = $this->topRight($topRightMap);
-        $bottomLeftImage = $this->bottomLeft($bottomLeftMap);
+        $topRightImage = $this->topRight($topRightImage);
+        $bottomLeftImage = $this->bottomLeft($bottomLeftImage);
 
         $ajustX = $topRightImage->getX() - $topRightMap->getX();
-        $ajustY = $topRightImage->getY() - $topRightImage->getY();
+        $ajustY = $topRightImage->getY() - $topRightMap->getY();
 
         foreach($map->targets() as $target)
         {
