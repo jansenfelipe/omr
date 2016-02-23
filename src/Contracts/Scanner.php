@@ -167,8 +167,8 @@ abstract class Scanner
         /*
          * Check image again
          */
-        $topRightImage = $this->topRight($topRightImage);
-        $bottomLeftImage = $this->bottomLeft($bottomLeftImage);
+        $topRightImage = $this->topRight($topRightMap);
+        $bottomLeftImage = $this->bottomLeft($bottomLeftMap);
 
         /*
          * Ajust size image
@@ -180,34 +180,38 @@ abstract class Scanner
         /*
          * Check image again
          */
-        $topRightImage = $this->topRight($topRightImage);
-        $bottomLeftImage = $this->bottomLeft($bottomLeftImage);
+        $topRightImage = $this->topRight($topRightMap);
+        $bottomLeftImage = $this->bottomLeft($bottomLeftMap);
 
         $ajustX = $topRightImage->getX() - $topRightMap->getX();
-        $ajustY = $topRightImage->getY() - $topRightMap->getY();
+        $ajustY = $bottomLeftImage->getY() - $bottomLeftMap->getY();
 
         foreach($map->targets() as $target)
         {
-            if ($target instanceof TextTarget){
+            if ($target instanceof TextTarget)
+            {
                 $target->setImageBlob($this->textArea($target->getA()->moveX($ajustX)->moveY($ajustY), $target->getB()->moveX($ajustX)->moveY($ajustY)));
 
             }else {
 
-                if ($target instanceof RectangleTarget) {
+                if ($target instanceof RectangleTarget)
+                {
                     $area = $this->rectangleArea($target->getA()->moveX($ajustX)->moveY($ajustY), $target->getB()->moveX($ajustX)->moveY($ajustY), $target->getTolerance());
                 }
 
-                if ($target instanceof CircleTarget) {
+                if ($target instanceof CircleTarget)
+                {
                     $area = $this->circleArea($target->getPoint()->moveX($ajustX)->moveY($ajustY), $target->getRadius(), $target->getTolerance());
                 }
 
-                $check = ($area->percentBlack() >= $target->getTolerance());
-
-                $target->setMarked($check);
+                $target->setBlackPixelsPercent($area->percentBlack());
+                
+                $target->setMarked($area->percentBlack() >= $target->getTolerance());
             }
 
             $result->addTarget($target);
         }
+
 
         if($this->debug)
             $this->debug();

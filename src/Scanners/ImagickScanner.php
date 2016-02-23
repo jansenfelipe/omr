@@ -32,7 +32,7 @@ class ImagickScanner extends Scanner
             $this->imagick = new Imagick($this->imagePath);
             $this->imagick->setResolution(300, 300);
             $this->imagick->thresholdImage(0.5);
-
+            $this->imagick->medianFilterImage(2);
             $this->imagick->setImageCompression(imagick::COMPRESSION_JPEG);
             $this->imagick->setImageCompressionQuality(100);
         }
@@ -49,8 +49,8 @@ class ImagickScanner extends Scanner
     {
         $imagick = $this->getImagick();
 
-        $first = new Point($near->getX() - 70, $near->getY() - 70);
-        $last  = new Point($near->getX() + 80, $near->getY() + 80);
+        $first = new Point($near->getX() - 200, $near->getY() - 100);
+        $last  = new Point($near->getX() + 100, $near->getY() + 200);
 
         $point = new Point($first->getX(), $last->getY());
 
@@ -80,7 +80,7 @@ class ImagickScanner extends Scanner
 
         //Debug draw
         $this->draw->setFillColor("#00CC00");
-        $this->draw->point($point->getX(), $point->getY());
+        $this->draw->point($point->getX(), $point->getY());$this->debug();
 
         return $point;
     }
@@ -93,9 +93,10 @@ class ImagickScanner extends Scanner
     protected function bottomLeft(Point $near)
     {
         $imagick = $this->getImagick();
+        $side = 200;
 
-        $first = new Point($near->getX() - 70, $near->getY() - 70);
-        $last  = new Point($near->getX() + 80, $near->getY() + 80);
+        $first = new Point($near->getX() - 100, $near->getY() - 200);
+        $last  = new Point($near->getX() + 200, $near->getY() + 100);
 
         $point = new Point($last->getX(), $first->getY());
 
@@ -152,8 +153,18 @@ class ImagickScanner extends Scanner
      */
     protected function ajustRotate($degrees)
     {
+        if($degrees<0)
+            $degrees = 360 + $degrees;
+
         $imagick = $this->getImagick();
+
+        $originalWidth = $imagick->getImageWidth();
+        $originalHeight = $imagick->getImageHeight();
+
         $imagick->rotateImage("#FFFFFF", $degrees);
+
+        $imagick->setImagePage($imagick->getimageWidth(), $imagick->getimageheight(), 0, 0);
+        $imagick->cropImage($originalWidth, $originalHeight, ($imagick->getimageWidth() - $originalWidth) / 2, ($imagick->getimageHeight() - $originalHeight) / 2);
     }
 
     /**

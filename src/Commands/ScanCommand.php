@@ -58,8 +58,6 @@ class ScanCommand extends Command
          * Scan
          */
         $result = $scanner->scan($map, 28);
-
-        $output->writeln(print_r($result));
     }
 
 

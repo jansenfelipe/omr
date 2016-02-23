@@ -27,6 +27,13 @@ abstract class Target
     protected $tolerance = 24;
 
     /**
+     * Black pixels percentage
+     *
+     * @var float
+     */
+    protected $blackPixelsPercent = 0;
+
+    /**
      * Checks if the target was marked
      *
      * @return boolean
@@ -78,6 +85,20 @@ abstract class Target
         $this->tolerance = $tolerance;
     }
 
+    /**
+     * @return float
+     */
+    public function getBlackPixelsPercent()
+    {
+        return $this->blackPixelsPercent;
+    }
 
+    /**
+     * @param float $blackPixelsPercent
+     */
+    public function setBlackPixelsPercent($blackPixelsPercent)
+    {
+        $this->blackPixelsPercent = $blackPixelsPercent;
+    }
 
 }
