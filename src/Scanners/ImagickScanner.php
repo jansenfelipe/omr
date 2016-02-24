@@ -11,6 +11,7 @@ use JansenFelipe\OMR\Point;
 class ImagickScanner extends Scanner
 {
 
+    private $original;
     private $imagick;
     private $draw;
 
@@ -29,6 +30,8 @@ class ImagickScanner extends Scanner
     {
         if(is_null($this->imagick))
         {
+            $this->original = new Imagick($this->imagePath);
+
             $this->imagick = new Imagick($this->imagePath);
             $this->imagick->setResolution(300, 300);
             $this->imagick->thresholdImage(0.5);
@@ -144,6 +147,8 @@ class ImagickScanner extends Scanner
         $heightAjust = $imagick->getImageHeight() + (($imagick->getImageHeight() * $percent) / 100);
 
         $this->imagick->resizeImage($widthAjusted, $heightAjust, Imagick::FILTER_POINT, 0, false);
+
+        $this->original->resizeImage($widthAjusted, $heightAjust, Imagick::FILTER_POINT, 0, false);
     }
 
     /**
@@ -161,10 +166,13 @@ class ImagickScanner extends Scanner
         $originalWidth = $imagick->getImageWidth();
         $originalHeight = $imagick->getImageHeight();
 
-        $imagick->rotateImage("#FFFFFF", $degrees);
+        $this->imagick->rotateImage("#FFFFFF", $degrees);
+        $this->imagick->setImagePage($imagick->getimageWidth(), $imagick->getimageheight(), 0, 0);
+        $this->imagick->cropImage($originalWidth, $originalHeight, ($imagick->getimageWidth() - $originalWidth) / 2, ($imagick->getimageHeight() - $originalHeight) / 2);
 
-        $imagick->setImagePage($imagick->getimageWidth(), $imagick->getimageheight(), 0, 0);
-        $imagick->cropImage($originalWidth, $originalHeight, ($imagick->getimageWidth() - $originalWidth) / 2, ($imagick->getimageHeight() - $originalHeight) / 2);
+        $this->original->rotateImage("#FFFFFF", $degrees);
+        $this->original->setImagePage($imagick->getimageWidth(), $imagick->getimageheight(), 0, 0);
+        $this->original->cropImage($originalWidth, $originalHeight, ($imagick->getimageWidth() - $originalWidth) / 2, ($imagick->getimageHeight() - $originalHeight) / 2);
     }
 
     /**
@@ -241,12 +249,10 @@ class ImagickScanner extends Scanner
      */
     protected function textArea(Point $a, Point $b)
     {
-        $imagick = $this->getImagick();
-
         $width = $b->getX() - $a->getX();
         $height = $b->getY() - $a->getY();
 
-        $region = $imagick->getImageRegion($width, $height, $a->getX(), $a->getY());
+        $region = $this->original->getImageRegion($width, $height, $a->getX(), $a->getY());
 
         //Add draw debug
         $this->draw->setStrokeOpacity(1);
@@ -266,5 +272,6 @@ class ImagickScanner extends Scanner
     protected function finish()
     {
         $this->getImagick()->clear();
+        $this->original->clear();
     }
 }
