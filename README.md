@@ -1,6 +1,5 @@
 # Optical Mark Recognition from PHP
 
-[![Travis](https://travis-ci.org/jansenfelipe/omr.svg?branch=1.0)](https://travis-ci.org/jansenfelipe/omr)
 [![Latest Stable Version](https://poser.pugx.org/jansenfelipe/omr/v/stable.svg)](https://packagist.org/packages/jansenfelipe/omr) 
 [![Total Downloads](https://poser.pugx.org/jansenfelipe/omr/downloads.svg)](https://packagist.org/packages/jansenfelipe/omr) 
 [![Latest Unstable Version](https://poser.pugx.org/jansenfelipe/omr/v/unstable.svg)](https://packagist.org/packages/jansenfelipe/omr)
