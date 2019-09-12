@@ -1,0 +1,79 @@
+{
+    "dpi": 300,
+    "width": 434,
+    "height": 442,
+    "limits": {
+      "topRight": {
+        "x": 423,
+        "y": 17
+      },
+      "bottomLeft": {
+        "x": 11,
+        "y": 423
+      }
+    },
+    "targets": [
+      {
+        "x1": 50,
+        "y1": 43,
+        "x2": 65,
+        "y2": 57,
+        "id": "Satisfação: Ruim",
+        "type": "rectangle",
+        "tolerance": 60
+      },
+      {
+        "x1": 200,
+        "y1": 43,
+        "x2": 218,
+        "y2": 57,
+        "id": "Satisfação: Regular",
+        "type": "rectangle",
+        "tolerance": 60
+      },
+      {
+        "x1": 370,
+        "y1": 41,
+        "x2": 388,
+        "y2": 58,
+        "id": "Satisfação: Otimo",
+        "type": "rectangle",
+        "tolerance": 60
+      },
+      {
+        "x1": 50,
+        "y1": 100,
+        "x2": 65,
+        "y2": 116,
+        "id": "Recomendaria: Nao",
+        "type": "rectangle",
+        "tolerance": 60
+      },
+      {
+        "x1": 200,
+        "y1": 100,
+        "x2": 218,
+        "y2": 117,
+        "id": "Recomendaria: Talvez",
+        "type": "rectangle",
+        "tolerance": 60
+      },
+      {
+        "x1": 371,
+        "y1": 99,
+        "x2": 388,
+        "y2": 117,
+        "id": "Recomendaria: Sim",
+        "type": "rectangle",
+        "tolerance": 60
+      },
+      {
+        "x1": 40,
+        "y1": 172,
+        "x2": 397,
+        "y2": 369,
+        "id": "Sugestão",
+        "type": "text"
+      }
+    ]
+  }
