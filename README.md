@@ -13,13 +13,13 @@ See: [https://en.wikipedia.org/wiki/Optical_mark_recognition](https://en.wikiped
 
 # How to use
 
-1) Add library:
+Add library:
 
 ```sh
 $ composer require jansenfelipe/omr
 ```
 
-2) Setup your `Map` and `Scanner` with the json file path containing the target coordinates and the image path _(See `/example` directory)_
+Setup your `Map` and `Scanner` with the json file path containing the target coordinates and the image path _(See `/example` directory)_
 
 ```php
 /*
@@ -34,7 +34,7 @@ $scanner->setImagePath($imagePath);
 $map = MapJson::create($mapJsonPath);
 ```
 
-3) Getting result
+Getting result
 
 ```php
 $result = $scanner->scan($map);
