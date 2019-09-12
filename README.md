@@ -42,11 +42,13 @@ Getting result
 $result = $scanner->scan($map);
 ```
 
-#### Scanners
+# Scanners
 
-This library needs PHP ImageMagick extension to make images of reading
+This library currently has only one scanner using `Imagemagick 6`. It has been tested using the following configurations:
 
-[http://php.net/manual/en/imagick.setup.php](http://php.net/manual/en/imagick.setup.php)
+* PHP 7.0
+* Extension imagick-3.4.2 
+* imagemagick6
 
 # License
 
