@@ -9,7 +9,7 @@ This is an open source library written in PHP for recognition markings on questi
 
 See: [https://en.wikipedia.org/wiki/Optical_mark_recognition](https://en.wikipedia.org/wiki/Optical_mark_recognition)
 
-<img src="https://github.com/jansenfelipe/omr/blob/develop/example/screenshots/exec-command.png?raw=true" />
+<img src="https://github.com/jansenfelipe/omr/blob/develop/example/screenshots/exec_command.png?raw=true" />
 
 # How to use
 
