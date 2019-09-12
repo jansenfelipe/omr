@@ -9,6 +9,8 @@ This is an open source library written in PHP for recognition markings on questi
 
 See: [https://en.wikipedia.org/wiki/Optical_mark_recognition](https://en.wikipedia.org/wiki/Optical_mark_recognition)
 
+<img src="https://github.com/jansenfelipe/omr/blob/develop/example/screenshots/exec-command.png?raw=true" />
+
 # How to use
 
 Add library:
@@ -17,67 +19,36 @@ Add library:
 $ composer require jansenfelipe/omr
 ```
 
-#### Scanners
+Setup your `Map` and `Scanner` with the json file path containing the target coordinates and the image path.
 
-This library needs PHP ImageMagick extension to make images of reading
+_(See `/example` directory)_
 
-[http://php.net/manual/en/imagick.setup.php](http://php.net/manual/en/imagick.setup.php)
+```php
+/*
+ * Setup scanner
+ */
+$scanner = new ImagickScanner();
+$scanner->setImagePath($imagePath);
 
-#### Console
-
-Run the following command through the image and mapping:
-
-```sh
-$ php vendor/bin/omr scan <imageJPG> <mapJSON>
+/*
+ * Setup map
+ */
+$map = MapJson::create($mapJsonPath);
 ```
 
-Example:
+Getting result
 
-```sh
-$ php vendor/bin/omr scan questionarie.jpg map.json
+```php
+$result = $scanner->scan($map);
 ```
 
-# Map JSON
+# Scanners
 
-The map is a JSON file with image information and the positions (targets) to be recognized.
+This library currently has only one scanner using `Imagemagick 6`. It has been tested using the following configurations:
 
-Example:
-
-```json
-{
-  "dpi": 300,
-  "width": 2480,
-  "height": 3508,
-  "limits": {
-    "topRight": {
-      "x": 2345,
-      "y": 140
-    },
-    "bottomLeft": {
-      "x": 115,
-      "y": 3338
-    }
-  },
-  "targets": [
-    {
-      "y1": 430,
-      "y2": 470,
-      "x1": 770,
-      "x2": 810,
-      "id": "a1",
-      "type": "rectangle"
-    },
-    {
-      "y1": 430,
-      "y2": 470,
-      "x1": 860,
-      "x2": 900,
-      "id": "a2",
-      "type": "rectangle"
-    }
-  ]
-}
-```
+* PHP 7.0
+* Extension imagick-3.4.2 
+* imagemagick6
 
 # License
 

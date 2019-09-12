@@ -69,7 +69,7 @@ class MapJson implements Map
     }
 
     /**
-     * Most point to the bottom/left
+     * Most point to the bottom/right
      *
      * @return Point
      */

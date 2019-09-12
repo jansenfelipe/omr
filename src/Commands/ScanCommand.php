@@ -9,6 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class ScanCommand extends Command
 {
@@ -57,7 +58,11 @@ class ScanCommand extends Command
         /*
          * Scan
          */
-        $result = $scanner->scan($map, 28);
+        $result = $scanner->scan($map);
+
+        $io = new SymfonyStyle($input, $output);
+
+        $io->table(['id', 'marked'], $result->toArray()['targets']);
     }
 
 
