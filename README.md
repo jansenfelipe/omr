@@ -19,7 +19,9 @@ Add library:
 $ composer require jansenfelipe/omr
 ```
 
-Setup your `Map` and `Scanner` with the json file path containing the target coordinates and the image path _(See `/example` directory)_
+Setup your `Map` and `Scanner` with the json file path containing the target coordinates and the image path.
+
+_(See `/example` directory)_
 
 ```php
 /*
