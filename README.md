@@ -19,9 +19,18 @@ Add library:
 $ composer require jansenfelipe/omr
 ```
 
-Setup your `Map` and `Scanner` with the json file path containing the target coordinates and the image path.
+You will need to scan a blank form and create the <a href="#target-mapping-file">Target Mapping File</a> to be able to use the library.
 
-_(See `/example` directory)_
+After creating the `map.json` file, enter its path:
+
+```php
+/*
+ * Setup map
+ */
+$map = MapJson::create($mapJsonPath);
+```
+
+Instantiate the <a href="#scanners">Scaner</a> class responsible for reading the image and enter its path
 
 ```php
 /*
@@ -29,11 +38,6 @@ _(See `/example` directory)_
  */
 $scanner = new ImagickScanner();
 $scanner->setImagePath($imagePath);
-
-/*
- * Setup map
- */
-$map = MapJson::create($mapJsonPath);
 ```
 
 Getting result
@@ -49,6 +53,30 @@ This library currently has only one scanner using `Imagemagick 6`. It has been t
 * PHP 7.0
 * Extension imagick-3.4.2 
 * imagemagick6
+
+# Target Mapping File
+
+It is a .json file that describes, in addition to the image information, the coordinates of the places (targets) that the script must do the pixel analysis. This file follows the following pattern:
+
+```json
+{
+    "width": 600,
+    "height": 800,
+    "targets": [
+      {
+        "x1": 50,
+        "y1": 43,
+        "x2": 65,
+        "y2": 57,
+        "id": "Foo",
+        "type": "rectangle",
+        "tolerance": 60
+      }
+    ] 
+}
+```
+
+In the `examples /` directory there is a `map.json` file that determines the targets to be read in the` response.png` image.
 
 # License
 
