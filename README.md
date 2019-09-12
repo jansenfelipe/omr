@@ -19,11 +19,18 @@ Add library:
 $ composer require jansenfelipe/omr
 ```
 
-You will need to scan a blank form and create the Target Mapping File
+You will need to scan a blank form and create the <a href="#target-mapping-file">Target Mapping File</a> to be able to use the library.
 
-Setup your `Map` and `Scanner` with the json file path containing the target coordinates and the image path.
+After creating the `map.json` file, enter its path:
 
-_(See `/example` directory)_
+```php
+/*
+ * Setup map
+ */
+$map = MapJson::create($mapJsonPath);
+```
+
+Instantiate the <a href="#scanners">Scaner</a> class responsible for reading the image and enter its path
 
 ```php
 /*
@@ -31,11 +38,6 @@ _(See `/example` directory)_
  */
 $scanner = new ImagickScanner();
 $scanner->setImagePath($imagePath);
-
-/*
- * Setup map
- */
-$map = MapJson::create($mapJsonPath);
 ```
 
 Getting result
