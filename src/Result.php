@@ -3,6 +3,7 @@
 namespace JansenFelipe\OMR;
 
 use JansenFelipe\OMR\Contracts\Target;
+use JansenFelipe\OMR\Targets\TextTarget;
 
 class Result
 {
@@ -92,5 +93,36 @@ class Result
     public function setImagePath($imagePath)
     {
         $this->imagePath = $imagePath;
+    }
+
+    /**
+     * To Array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $filtered = array_filter($this->targets, function(Target $target){
+            return !($target instanceof TextTarget);
+        });
+
+        return [
+            'targets' => array_map(function(Target $item){
+                return [
+                    'id' => $item->getId(),
+                    'marked' => $item->isMarked() ? 'yes' : 'no'
+                ];
+            }, $filtered)
+        ];
+    }
+
+    /**
+     * To Json
+     *
+     * @return string
+     */
+    public function toJson()
+    {
+        return json_encode($this->toArray());
     }
 }
