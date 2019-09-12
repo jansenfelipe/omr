@@ -19,6 +19,16 @@ Add library:
 $ composer require jansenfelipe/omr
 ```
 
+Instantiate the <a href="#scanners">Scaner</a> class responsible for reading the image and enter its path
+
+```php
+/*
+ * Setup scanner
+ */
+$scanner = new ImagickScanner();
+$scanner->setImagePath($imagePath);
+```
+
 You will need to scan a blank form and create the <a href="#target-mapping-file">Target Mapping File</a> to be able to use the library.
 
 After creating the `map.json` file, enter its path:
@@ -30,17 +40,7 @@ After creating the `map.json` file, enter its path:
 $map = MapJson::create($mapJsonPath);
 ```
 
-Instantiate the <a href="#scanners">Scaner</a> class responsible for reading the image and enter its path
-
-```php
-/*
- * Setup scanner
- */
-$scanner = new ImagickScanner();
-$scanner->setImagePath($imagePath);
-```
-
-Getting result
+Now you can scan and get the result
 
 ```php
 $result = $scanner->scan($map);
