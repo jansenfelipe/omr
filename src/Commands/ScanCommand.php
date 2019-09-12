@@ -57,7 +57,7 @@ class ScanCommand extends Command
         /*
          * Scan
          */
-        $result = $scanner->scan($map, 28);
+        $result = $scanner->scan($map);
     }
 
 

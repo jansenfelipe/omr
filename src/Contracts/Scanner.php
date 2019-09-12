@@ -186,6 +186,9 @@ abstract class Scanner
         $ajustX = $topRightImage->getX() - $topRightMap->getX();
         $ajustY = $bottomLeftImage->getY() - $bottomLeftMap->getY();
 
+        if($ajustX < 0) $ajustX = 0;
+        if($ajustY < 0) $ajustY = 0;
+
         foreach($map->targets() as $target)
         {
             if ($target instanceof TextTarget)

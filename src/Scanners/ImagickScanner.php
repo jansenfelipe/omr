@@ -19,6 +19,7 @@ class ImagickScanner extends Scanner
     {
         $this->draw = new ImagickDraw();
         $this->draw->setFontSize(6);
+        $this->draw->setFillOpacity(0.4);
     }
 
     /**
@@ -34,10 +35,11 @@ class ImagickScanner extends Scanner
 
             $this->imagick = new Imagick($this->imagePath);
             $this->imagick->setResolution(300, 300);
-            $this->imagick->thresholdImage(0.5);
             $this->imagick->medianFilterImage(2);
             $this->imagick->setImageCompression(imagick::COMPRESSION_JPEG);
             $this->imagick->setImageCompressionQuality(100);
+            $this->imagick->blackThresholdImage("#FFFFFF");
+            $this->imagick->whiteThresholdImage("#000000");
         }
 
         return $this->imagick;
@@ -52,14 +54,20 @@ class ImagickScanner extends Scanner
     {
         $imagick = $this->getImagick();
 
-        $first = new Point($near->getX() - 200, $near->getY() - 100);
-        $last  = new Point($near->getX() + 100, $near->getY() + 200);
+        $x = $near->getX() - 20;
+        $y = $near->getY() - 20;
 
-        $point = new Point($first->getX(), $last->getY());
+        $first = new Point($x > 0 ? $x : 0, $y > 0 ? $y : 0);
+
+        $x = $near->getX() + 20;
+        $y = $near->getY() + 20;
+
+        $last = new Point($x > $imagick->getImageWidth() ? $imagick->getImageWidth() : $x, $y > $imagick->getImageHeight() ? $imagick->getImageHeight() : $y);
+
+        $point = new Point($near->getX(), $near->getY());
 
         //Add draw debug
         $this->draw->setStrokeOpacity(1);
-        $this->draw->setFillOpacity(0);
         $this->draw->setStrokeWidth(2);
         $this->draw->setStrokeColor("#00CC00");
         $this->draw->rectangle($first->getX(), $first->getY(), $last->getX(), $last->getY());
@@ -82,8 +90,7 @@ class ImagickScanner extends Scanner
         }
 
         //Debug draw
-        $this->draw->setFillColor("#00CC00");
-        $this->draw->point($point->getX(), $point->getY());$this->debug();
+        $this->draw->circle($point->getX(), $point->getY(), $point->getX() + 2, $point->getY());
 
         return $point;
     }
@@ -96,16 +103,21 @@ class ImagickScanner extends Scanner
     protected function bottomLeft(Point $near)
     {
         $imagick = $this->getImagick();
-        $side = 200;
+        
+        $x = $near->getX() - 20;
+        $y = $near->getY() - 20;
 
-        $first = new Point($near->getX() - 100, $near->getY() - 200);
-        $last  = new Point($near->getX() + 200, $near->getY() + 100);
+        $first = new Point($x > 0 ? $x : 0, $y > 0 ? $y : 0);
 
-        $point = new Point($last->getX(), $first->getY());
+        $x = $near->getX() + 20;
+        $y = $near->getY() + 20;
+
+        $last = new Point($x > $imagick->getImageWidth() ? $imagick->getImageWidth() : $x, $y > $imagick->getImageHeight() ? $imagick->getImageHeight() : $y);
+
+        $point = new Point($near->getX(), $near->getY());
 
         //Add draw debug
         $this->draw->setStrokeOpacity(1);
-        $this->draw->setFillOpacity(0);
         $this->draw->setStrokeWidth(2);
         $this->draw->setStrokeColor("#00CC00");
         $this->draw->rectangle($first->getX(), $first->getY(), $last->getX(), $last->getY());
@@ -128,8 +140,7 @@ class ImagickScanner extends Scanner
         }
 
         //Debug draw
-        $this->draw->setFillColor("#00CC00");
-        $this->draw->point($point->getX(), $point->getY());
+        $this->draw->circle($point->getX(), $point->getY(), $point->getX() + 2, $point->getY());
 
         return $point;
     }
@@ -206,22 +217,16 @@ class ImagickScanner extends Scanner
         $counts = array_count_values($pixels);
 
         $blacks = 0;
-        $whites = 0;
+        $whites = isset($counts[255]) ? $counts[255] : 0;
 
-        foreach($counts as $k => $qtd){
-            if($k == -1)
-                $whites += $qtd;
-            else
-                $blacks += $qtd;
-        }
+        $blacks = array_sum($counts) - $whites;
 
         $area = new Area(count($pixels), $whites, $blacks);
 
         //Add draw debug
         $this->draw->setStrokeOpacity(1);
-        $this->draw->setFillOpacity(0);
         $this->draw->setStrokeWidth(2);
-        $this->draw->setStrokeColor($area->percentBlack()>=$tolerance?"#0000CC":"#CC0000");
+        $this->draw->setStrokeColor($area->percentBlack() >= $tolerance ? "#0000CC":"#CC0000");
         $this->draw->rectangle($a->getX(), $a->getY(), $b->getX(), $b->getY());
 
         return $area;
