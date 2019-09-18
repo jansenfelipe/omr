@@ -19,7 +19,7 @@ Add library:
 $ composer require jansenfelipe/omr
 ```
 
-Instantiate the <a href="#scanners">Scaner</a> class responsible for reading the image and enter its path
+Instantiate the <a href="#scanners">Scanner</a> class responsible for reading the image and enter its path
 
 ```php
 /*
@@ -48,11 +48,13 @@ $result = $scanner->scan($map);
 
 # Scanners
 
-This library currently has only one scanner using `Imagemagick 6`. It has been tested using the following configurations:
+This library currently has only one scanner class using `Imagemagick 6`. It has been tested using the following configurations:
 
 * PHP 7.0
 * Extension imagick-3.4.2 
 * imagemagick6
+
+See https://github.com/jansenfelipe/omr/blob/master/src/Scanners/ImagickScanner.php
 
 # Target Mapping File
 
