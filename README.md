@@ -1,4 +1,4 @@
-# Optical Mark Recognition from PHP
+# Optical Mark Recognition with PHP
 
 [![Latest Stable Version](https://poser.pugx.org/jansenfelipe/omr/v/stable.svg)](https://packagist.org/packages/jansenfelipe/omr) 
 [![Total Downloads](https://poser.pugx.org/jansenfelipe/omr/downloads.svg)](https://packagist.org/packages/jansenfelipe/omr) 
@@ -78,7 +78,7 @@ It is a .json file that describes, in addition to the image information, the coo
 }
 ```
 
-In the `examples /` directory there is a `map.json` file that determines the targets to be read in the` response.png` image.
+In the `examples` directory there is a `map.json` file that determines the targets to be read in the `response.png` image.
 
 # License
 
