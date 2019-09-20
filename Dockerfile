@@ -15,9 +15,4 @@ RUN pecl install xdebug \
 
 RUN echo "xdebug.remote_autostart=1" | tee -a /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini > /dev/null && \
     echo "xdebug.remote_enable=1" | tee -a /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini > /dev/null && \
-    if ping -c 1 docker.for.mac.localhost > /dev/null; \
-    then \
-        echo "xdebug.remote_host=docker.for.mac.localhost" | tee -a /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini > /dev/null; \
-    else \
-        echo "xdebug.remote_host=`/sbin/ip route|awk '/default/ { print $3 }'`" | tee -a /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini > /dev/null; \
-    fi
+    echo "xdebug.remote_host=host.docker.internal" | tee -a /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini > /dev/null;
