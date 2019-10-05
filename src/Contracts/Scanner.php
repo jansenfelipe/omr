@@ -283,7 +283,7 @@ abstract class Scanner
                 if ($result instanceof ErrorResult) {
                     $target->setResult($result->text);
                 } else {
-                    $target->setResult($result->code);
+                    $target->setResult($result->text);
                     $target->setFormat($result->format);
                     $target->setMarked(true);
                 }

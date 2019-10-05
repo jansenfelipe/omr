@@ -61,8 +61,7 @@ class ScanCommand extends Command
         $result = $scanner->scan($map);
 
         $io = new SymfonyStyle($input, $output);
-
-        $io->table(['id', 'marked'], $result->toArray()['targets']);
+        $io->table(['id', 'marked', 'result'], $result->toArray()['targets']);
     }
 
 
