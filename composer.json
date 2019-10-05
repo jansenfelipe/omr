@@ -1,18 +1,25 @@
 {
-  "name": "gdecorbiac/omr",
-  "description": "Optical Mark Recognition from PHP",
+  "name": "jansenfelipe/omr",
+  "description": "Optical Mark Recognition from PHP with support of barcodes and qrcodes",
   "type": "library",
   "license": "MIT",
   "authors": [
     {
       "name": "Jansen Felipe",
       "email": "jansen.felipe@gmail.com"
+    },
+    {
+        "name": "Geoffroy de Corbiac",
+        "email": "geoffroydecorbiac@gmail.com"
     }
   ],
   "keywords": [
     "omr",
     "optical mark recognition",
-    "survey"
+    "survey",
+    "barcode",
+    "zbar",
+    "qrcode"
   ],
   "require": {
     "symfony/console": "2.7.*",
