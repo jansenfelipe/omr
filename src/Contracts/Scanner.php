@@ -10,6 +10,7 @@ use JansenFelipe\OMR\Targets\CircleTarget;
 use JansenFelipe\OMR\Targets\RectangleTarget;
 use JansenFelipe\OMR\Targets\TextTarget;
 use JansenFelipe\OMR\Targets\ZBarTarget;
+use RobbieP\ZbarQrdecoder\Result\ErrorResult;
 
 abstract class Scanner
 {
@@ -53,7 +54,7 @@ abstract class Scanner
      *
      * @param Point $a
      * @param Point $b
-     * @return Area
+     * @return mixed
      */
     protected abstract function barcodeArea(Point $a, Point $b);
 
@@ -277,8 +278,18 @@ abstract class Scanner
         }
 
         if ($target instanceof ZBarTarget) {
-            $target->setImageBlob($this->textArea($target->getA()->moveX($ajustX)->moveY($ajustY), $target->getB()->moveX($ajustX)->moveY($ajustY)));
-            $target->decode();
+            try {
+                $result = $this->barcodeArea($target->getA()->moveX($ajustX)->moveY($ajustY), $target->getB()->moveX($ajustX)->moveY($ajustY));
+                if ($result instanceof ErrorResult) {
+                    $target->setResult($result->text);
+                } else {
+                    $target->setResult($result->code);
+                    $target->setFormat($result->format);
+                    $target->setMarked(true);
+                }
+            } catch (\Throwable $th) {
+                $target->setResult($th->getMessage());
+            }
             return $target;
         }
 

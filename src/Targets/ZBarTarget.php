@@ -2,9 +2,10 @@
 
 namespace JansenFelipe\OMR\Targets;
 
+use JansenFelipe\OMR\Contracts\Target;
 use JansenFelipe\OMR\Point;
 
-class ZBarTarget extends TextTarget
+class ZBarTarget extends Target
 {
     public const TYPE_QR_CODE   = 1;
 
@@ -13,6 +14,20 @@ class ZBarTarget extends TextTarget
     public const TYPE_CODE_39   = 3;
     
     public const TYPE_CODE_128  = 4;
+
+    /**
+     * Pointer Top/Left
+     *
+     * @var Point
+     */
+    private $a;
+
+    /**
+     * Pointer Bottom/Right
+     *
+     * @var Point
+     */
+    private $b;
 
     /**
      * The barcode format
@@ -34,12 +49,32 @@ class ZBarTarget extends TextTarget
      * @param $id
      * @param Point $a
      * @param Point $b
-     * @param string $format
      */
-    public function __construct($id, Point $a, Point $b, string $format)
+    public function __construct($id, Point $a, Point $b)
     {
-        parent::__construct($id, $a, $b);
-        $this->format = $format;
+        $this->id = $id;
+        $this->a = $a;
+        $this->b = $b;
+    }
+
+    /**
+     * Get Pointer Top/Left
+     *
+     * @return Point
+     */
+    public function getA()
+    {
+        return $this->a;
+    }
+
+    /**
+     * Get Pointer Bottom/Right
+     *
+     * @return Point
+     */
+    public function getB()
+    {
+        return $this->b;
     }
 
     /**
@@ -50,6 +85,16 @@ class ZBarTarget extends TextTarget
     public function getFormat()
     {
         return $this->format;
+    }
+
+    /**
+     * Set the barcode format
+     *
+     * @return string
+     */
+    public function setFormat($format)
+    {
+        $this->format = $format;
     }
 
     /**
@@ -68,15 +113,5 @@ class ZBarTarget extends TextTarget
     public function getResult()
     {
         return $this->result;
-    }
-
-    /**
-     * Decode the barcode image
-     *
-     * @return string
-     */
-    public function decode()
-    {
-        // TODO
     }
 }

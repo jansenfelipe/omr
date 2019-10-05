@@ -7,6 +7,7 @@ use ImagickDraw;
 use JansenFelipe\OMR\Area;
 use JansenFelipe\OMR\Contracts\Scanner;
 use JansenFelipe\OMR\Point;
+use RobbieP\ZbarQrdecoder\ZbarDecoder;
 
 class ImagickScanner extends Scanner
 {
@@ -267,6 +268,25 @@ class ImagickScanner extends Scanner
         $this->draw->rectangle($a->getX(), $a->getY(), $b->getX(), $b->getY());
 
         return $region->getImageBlob();
+    }
+
+    /**
+     * Returns barcode analysis of a rectangular area
+     *
+     * @param Point $a
+     * @param Point $b
+     * @return mixed
+     */
+    protected function barcodeArea(Point $a, Point $b)
+    {
+        $imageBlob = $this->textArea($a, $b);
+        $image = new \Imagick();
+        $image->readImageBlob($imageBlob);
+        $tmpImagePath = tempnam(sys_get_temp_dir(), 'CODE');
+        $image->writeImage($tmpImagePath);
+        
+        $ZbarDecoder = new ZbarDecoder();
+        return $ZbarDecoder->make($tmpImagePath);
     }
 
     /**
