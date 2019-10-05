@@ -1,0 +1,110 @@
+{
+    "dpi": 150,
+    "width": 1275,
+    "height": 1753,
+    "limits": {
+      "topRight": {
+        "x": 1152,
+        "y": 70
+      },
+      "bottomLeft": {
+        "x": 70,
+        "y": 1671
+      }
+    },
+    "targets": [
+      {
+        "x1": 642,
+        "y1": 118,
+        "x2": 665,
+        "y2": 141,
+        "id": "Rectangle : 1",
+        "type": "rectangle",
+        "tolerance": 60
+      },
+      {
+        "x1": 712,
+        "y1": 118,
+        "x2": 736,
+        "y2": 141,
+        "id": "Rectangle : 2",
+        "type": "rectangle",
+        "tolerance": 60
+      },
+      {
+        "x1": 788,
+        "y1": 118,
+        "x2": 811,
+        "y2": 141,
+        "id": "Rectangle : 3",
+        "type": "rectangle",
+        "tolerance": 60
+      },
+      {
+        "x1": 866,
+        "y1": 118,
+        "x2": 889,
+        "y2": 141,
+        "id": "Rectangle : 4",
+        "type": "rectangle",
+        "tolerance": 60
+      },
+      {
+        "x1": 944,
+        "y1": 118,
+        "x2": 968,
+        "y2": 141,
+        "id": "Rectangle : 5",
+        "type": "rectangle",
+        "tolerance": 60
+      },
+      {
+        "x1": 619,
+        "y1": 277,
+        "x2": 968,
+        "y2": 433,
+        "id": "Text area :",
+        "type": "text"
+      },
+      {
+        "x1": 619,
+        "y1": 500,
+        "x2": 968,
+        "y2": 600,
+        "id": "Fake barcode zone",
+        "type": "barcode"
+      },
+      {
+        "x1": 138,
+        "y1": 615,
+        "x2": 650,
+        "y2": 740,
+        "id": "Code 39",
+        "type": "barcode"
+      },
+      {
+        "x1": 138,
+        "y1": 857,
+        "x2": 644,
+        "y2": 980,
+        "id": "Code 128",
+        "type": "barcode"
+      },
+      {
+        "x1": 163,
+        "y1": 1140,
+        "x2": 484,
+        "y2": 1279,
+        "id": "EAN 13",
+        "type": "barcode"
+      },
+      {
+        "x1": 147,
+        "y1": 1424,
+        "x2": 325,
+        "y2": 1584,
+        "id": "QRCode",
+        "type": "barcode"
+      }
+    ]
+  }
