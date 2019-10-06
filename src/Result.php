@@ -45,8 +45,8 @@ class Result
     /**
      * Set dimensions
      *
-     * @param $width
-     * @param $height
+     * @param int $width
+     * @param int $height
      */
     public function setDimensions($width, $height)
     {
@@ -102,18 +102,18 @@ class Result
      */
     public function toArray()
     {
-        $filtered = array_filter($this->targets, function(Target $target){
+        $filtered = array_filter($this->targets, function (Target $target) {
             return !($target instanceof TextTarget);
         });
 
-        return [
-            'targets' => array_map(function(Target $item){
-                return [
-                    'id' => $item->getId(),
-                    'marked' => $item->isMarked() ? 'yes' : 'no'
-                ];
-            }, $filtered)
-        ];
+        $targets = array_map(function (Target $item) {
+            return [
+                'id' => $item->getId(),
+                'marked' => $item->isMarked() ? 'yes' : 'no'
+            ];
+        }, $filtered);
+
+        return compact('targets');
     }
 
     /**
