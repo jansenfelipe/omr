@@ -40,7 +40,7 @@ class Result
      *
      * @var Target[]
      */
-    private $targets;
+    private $targets = [];
 
     /**
      * Set dimensions
