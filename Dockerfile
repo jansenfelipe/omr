@@ -1,4 +1,4 @@
-FROM php:7.0-cli-alpine
+FROM php:7.3-cli-alpine
 
 RUN apk add -u $PHPIZE_DEPS \
     git \
@@ -7,7 +7,7 @@ RUN apk add -u $PHPIZE_DEPS \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN pecl install imagick-3.4.2 \
+RUN pecl install imagick \
     && docker-php-ext-enable imagick
 
 RUN pecl install xdebug \
