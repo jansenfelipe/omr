@@ -13,7 +13,7 @@ class ResultTest extends TestCase
         $result = new Result();
         $resultToArray = $result->toArray();
 
-        self::assertTrue(is_array($resultToArray));
+        self::assertIsArray($resultToArray);
         self::assertArrayHasKey('targets', $resultToArray);
         self::assertEmpty($resultToArray['targets']);
     }
@@ -30,7 +30,7 @@ class ResultTest extends TestCase
         });
         $resultToArray = $result->toArray();
 
-        self::assertTrue(is_array($resultToArray));
+        self::assertIsArray($resultToArray);
         self::assertArrayHasKey('targets', $resultToArray);
         self::assertCount(2, $resultToArray['targets']);
         self::assertSame('no', $resultToArray['targets'][0]['marked']);
