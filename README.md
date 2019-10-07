@@ -50,9 +50,9 @@ $result = $scanner->scan($map);
 
 This library currently has only one scanner class using `Imagemagick 6`. It has been tested using the following configurations:
 
-* PHP 7.0
-* Extension imagick-3.4.2 
+* PHP 7.3
 * imagemagick6
+* Extension imagick-3.4.4 
 
 See https://github.com/jansenfelipe/omr/blob/master/src/Scanners/ImagickScanner.php
 
@@ -78,7 +78,31 @@ It is a .json file that describes, in addition to the image information, the coo
 }
 ```
 
-In the `examples` directory there is a `map.json` file that determines the targets to be read in the `response.png` image.
+# Example
+
+In the `example` directory there is an image of a completed questionnaire `response.png`. There is also a `map.json` file that gives the coordinates of the image areas that will be analyzed the pixels.
+
+To help with setting up the environment, there is a Dockerfile in the project based on the official PHP 7.3 image that adds composer, imagemagick and the imagick extension to PHP.
+
+That way you can install the dependencies and run the command to process the image without headaches :)
+
+1) Clone this repo
+
+```
+$ git clone 
+```
+
+2) Install dependencies:
+
+```
+docker-compose run php composer install
+```
+
+2) Process example image:
+
+```
+docker-compose run php bin/omr scan example/response.png example/map.json
+```
 
 # License
 
