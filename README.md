@@ -86,22 +86,23 @@ To help with setting up the environment, there is a Dockerfile in the project ba
 
 That way you can install the dependencies and run the command to process the image without headaches :)
 
-1) Clone this repo
+1) Clone this repo:
 
-```
-$ git clone 
+```ssh
+$ git clone https://github.com/jansenfelipe/omr.git
+$ cd omr/
 ```
 
 2) Install dependencies:
 
-```
-docker-compose run php composer install
+```ssh
+$ docker-compose run php composer install
 ```
 
 2) Process example image:
 
-```
-docker-compose run php bin/omr scan example/response.png example/map.json
+```ssh
+$ docker-compose run php bin/omr scan example/response.png example/map.json
 ```
 
 # License
