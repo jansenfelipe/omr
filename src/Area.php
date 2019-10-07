@@ -28,8 +28,12 @@ class Area
 
     /**
      * Constructor
+     * @param int $pixels
+     * @param int $whitePixels
+     * @param int $blackPixels
      */
-    public function __construct($pixels, $whitePixels, $blackPixels){
+    public function __construct($pixels, $whitePixels, $blackPixels)
+    {
         $this->pixels = $pixels;
         $this->whitePixels = $whitePixels;
         $this->blackPixels = $blackPixels;
@@ -38,18 +42,20 @@ class Area
     /**
      * Percentage of black pixels
      *
-     * @var float
+     * @returns float
      */
-    public function percentBlack(){
-        return (100 * $this->blackPixels) / $this->pixels;
+    public function percentBlack()
+    {
+        return 100 * $this->blackPixels / $this->pixels;
     }
 
     /**
      * Percentage of white pixels
      *
-     * @var float
+     * @returns float
      */
-    public function percentWhite(){
-        return (100 * $this->whitePixels) / $this->pixels;
+    public function percentWhite()
+    {
+        return 100 * $this->whitePixels / $this->pixels;
     }
 }
