@@ -4,6 +4,7 @@
 [![Total Downloads](https://poser.pugx.org/jansenfelipe/omr/downloads.svg)](https://packagist.org/packages/jansenfelipe/omr) 
 [![Latest Unstable Version](https://poser.pugx.org/jansenfelipe/omr/v/unstable.svg)](https://packagist.org/packages/jansenfelipe/omr)
 [![MIT license](https://poser.pugx.org/jansenfelipe/omr/license.svg)](http://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/jansenfelipe/omr.svg?branch=master)](https://travis-ci.org/jansenfelipe/omr)
 
 This is an open source library written in PHP for recognition markings on questionnaires scans
 
