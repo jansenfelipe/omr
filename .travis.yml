@@ -9,7 +9,9 @@ php:
 dist: trusty
 
 before_install:
-  - pecl install imagick
+  - pear config-set preferred_state beta
+  - pecl channel-update pecl.php.net
+  - yes | pecl install imagick
 
 install:
   - composer self-update
