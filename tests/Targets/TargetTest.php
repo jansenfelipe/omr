@@ -6,7 +6,8 @@ use PHPUnit\Framework\TestCase;
 
 class TargetTest extends TestCase
 {
-    public function testTargetClassWillSetAndGet() {
+    public function testTargetClassWillSetAndGet()
+    {
         $target = new TargetHelperMock();
 
         $this->assertEquals(24, $target->getTolerance());

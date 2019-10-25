@@ -8,7 +8,8 @@ use PHPUnit\Framework\TestCase;
 
 class TextTargetTest extends TestCase
 {
-    public function testCircleClassWillServeDefaultAttributes() {
+    public function testCircleClassWillServeDefaultAttributes()
+    {
         $pointA = new Point(1337, 1338);
         $pointB = new Point(1335, 1336);
         $text = new TextTarget('foo', $pointA, $pointB);

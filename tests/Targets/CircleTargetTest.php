@@ -8,7 +8,8 @@ use PHPUnit\Framework\TestCase;
 
 class CircleTargetTest extends TestCase
 {
-    public function testCircleClassWillServeDefaultAttributes() {
+    public function testCircleClassWillServeDefaultAttributes()
+    {
         $point = new Point(1337, 1338);
         $circle = new CircleTarget('foo', $point, 1339);
 
