@@ -4,6 +4,7 @@ namespace JansenFelipe\OMR;
 
 use JansenFelipe\OMR\Contracts\Target;
 use JansenFelipe\OMR\Targets\TextTarget;
+use JansenFelipe\OMR\Targets\ZBarTarget;
 
 class Result
 {
@@ -109,7 +110,8 @@ class Result
         $targets = array_map(function (Target $item) {
             return [
                 'id' => $item->getId(),
-                'marked' => $item->isMarked() ? 'yes' : 'no'
+                'marked' => $item->isMarked() ? 'yes' : 'no',
+                'result' => $item instanceof ZBarTarget ? $item->getResult() : ' - '
             ];
         }, $filtered);
 

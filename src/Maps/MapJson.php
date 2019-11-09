@@ -8,6 +8,7 @@ use JansenFelipe\OMR\Point;
 use JansenFelipe\OMR\Targets\CircleTarget;
 use JansenFelipe\OMR\Targets\RectangleTarget;
 use JansenFelipe\OMR\Targets\TextTarget;
+use JansenFelipe\OMR\Targets\ZBarTarget;
 
 class MapJson implements Map
 {
@@ -94,6 +95,11 @@ class MapJson implements Map
             if($target['type'] == 'text')
             {
                 $t = new TextTarget($target['id'], new Point($target['x1'], $target['y1']), new Point($target['x2'], $target['y2']));
+            }
+
+            if($target['type'] == 'barcode')
+            {
+                $t = new ZBarTarget($target['id'], new Point($target['x1'], $target['y1']), new Point($target['x2'], $target['y2']));
             }
 
             if($target['type'] == 'rectangle')

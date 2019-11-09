@@ -9,6 +9,8 @@ use JansenFelipe\OMR\Result;
 use JansenFelipe\OMR\Targets\CircleTarget;
 use JansenFelipe\OMR\Targets\RectangleTarget;
 use JansenFelipe\OMR\Targets\TextTarget;
+use JansenFelipe\OMR\Targets\ZBarTarget;
+use RobbieP\ZbarQrdecoder\Result\ErrorResult;
 
 abstract class Scanner
 {
@@ -46,6 +48,15 @@ abstract class Scanner
      * @return Point
      */
     protected abstract function bottomLeft(Point $near);
+
+    /**
+     * Returns barcode analysis in a rectangular area
+     *
+     * @param Point $a
+     * @param Point $b
+     * @return mixed
+     */
+    protected abstract function barcodeArea(Point $a, Point $b);
 
     /**
      * Returns pixel analysis in a rectangular area
@@ -191,28 +202,7 @@ abstract class Scanner
 
         foreach($map->targets() as $target)
         {
-            if ($target instanceof TextTarget)
-            {
-                $target->setImageBlob($this->textArea($target->getA()->moveX($ajustX)->moveY($ajustY), $target->getB()->moveX($ajustX)->moveY($ajustY)));
-
-            }else {
-
-                if ($target instanceof RectangleTarget)
-                {
-                    $area = $this->rectangleArea($target->getA()->moveX($ajustX)->moveY($ajustY), $target->getB()->moveX($ajustX)->moveY($ajustY), $target->getTolerance());
-                }
-
-                if ($target instanceof CircleTarget)
-                {
-                    $area = $this->circleArea($target->getPoint()->moveX($ajustX)->moveY($ajustY), $target->getRadius(), $target->getTolerance());
-                }
-
-                $target->setBlackPixelsPercent($area->percentBlack());
-                
-                $target->setMarked($area->percentBlack() >= $target->getTolerance());
-            }
-
-            $result->addTarget($target);
+            $result->addTarget($this->analyzeTarget($target, $ajustX, $ajustY));
         }
 
 
@@ -280,4 +270,40 @@ abstract class Scanner
         return $result;
     }
 
+    private function analyzeTarget(Target $target, $ajustX, $ajustY)
+    {
+        if ($target instanceof TextTarget) {
+            $target->setImageBlob($this->textArea($target->getA()->moveX($ajustX)->moveY($ajustY), $target->getB()->moveX($ajustX)->moveY($ajustY)));
+            return $target;
+        }
+
+        if ($target instanceof ZBarTarget) {
+            try {
+                $result = $this->barcodeArea($target->getA()->moveX($ajustX)->moveY($ajustY), $target->getB()->moveX($ajustX)->moveY($ajustY));
+                if ($result instanceof ErrorResult) {
+                    $target->setResult($result->text);
+                } else {
+                    $target->setResult($result->text);
+                    $target->setFormat($result->format);
+                    $target->setMarked(true);
+                }
+            } catch (\Throwable $th) {
+                $target->setResult($th->getMessage());
+            }
+            return $target;
+        }
+
+        if ($target instanceof RectangleTarget) {
+            $area = $this->rectangleArea($target->getA()->moveX($ajustX)->moveY($ajustY), $target->getB()->moveX($ajustX)->moveY($ajustY), $target->getTolerance());
+        }
+
+        if ($target instanceof CircleTarget) {
+            $area = $this->circleArea($target->getPoint()->moveX($ajustX)->moveY($ajustY), $target->getRadius(), $target->getTolerance());
+        }
+
+        $target->setBlackPixelsPercent($area->percentBlack());
+        $target->setMarked($area->percentBlack() >= $target->getTolerance());
+
+        return $target;
+    }
 }
