@@ -15,7 +15,7 @@
     "survey"
   ],
   "require": {
-    "php": "7.*",
+    "php": "^8.1",
     "ext-imagick": "*",
     "symfony/console": "2.7.*"
   },
