@@ -1,9 +1,15 @@
-version: '3'
+version: "3.1"
 
 services:
-
-  php:
+  php-fpm:
+    platform: linux/arm64/v8
     build: ./
-    volumes:
-      - .:/app
+    container_name: omr-webserver
     working_dir: /app
+    domainname: omr.localhost
+    volumes:
+      - ./:/app
+    environment:
+      - COMPOSER_VERSION=2
+    ports:
+      - "80:80"

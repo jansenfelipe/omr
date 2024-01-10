@@ -1,18 +1,16 @@
-FROM php:7.3-cli-alpine
+FROM webdevops/php-nginx:8.1
 
-RUN apk add -u $PHPIZE_DEPS \
-    git \
-    imagemagick6 \
-    imagemagick6-dev
+# Default powerline10k theme, no plugins installed
+RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.2/zsh-in-docker.sh)"
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Uncomment following lines if you're using a Macbook with M1 processor or comment it if you're not using one.
+#
+ RUN set -eux; \
+   wget --quiet -O /usr/local/bin/go-replace https://github.com/webdevops/goreplace/releases/download/1.1.2/gr-arm64-linux; \
+   chmod +x /usr/local/bin/go-replace;
 
-RUN pecl install imagick \
-    && docker-php-ext-enable imagick
-
-RUN pecl install xdebug \
-    && docker-php-ext-enable xdebug
-
-RUN echo "xdebug.remote_autostart=1" | tee -a /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini > /dev/null && \
-    echo "xdebug.remote_enable=1" | tee -a /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini > /dev/null && \
-    echo "xdebug.remote_host=host.docker.internal" | tee -a /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini > /dev/null;
+RUN apt-get update && \
+        apt-get install -y tesseract-ocr tesseract-ocr-fra && \
+        # Nettoyer le cache du gestionnaire de paquets pour réduire la taille de l'image
+        apt-get clean && \
+        rm -rf /var/lib/apt/lists/* \
