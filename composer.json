@@ -20,9 +20,6 @@
     "symfony/console": "2.7.*"
   },
   "bin": ["bin/omr"],
-  "require-dev": {
-    "phpunit/phpunit": "8.*"
-  },
   "autoload": {
     "psr-4": {
       "JansenFelipe\\OMR\\": "src/"
